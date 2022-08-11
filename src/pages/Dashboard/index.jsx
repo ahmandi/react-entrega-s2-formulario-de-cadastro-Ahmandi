@@ -47,16 +47,16 @@ function Dashboard() {
 
 			<Div>
 				<Greeting>
-					<H1>Olá, {data.name}</H1>
+					<H1>Hello, {data.name}</H1>
 					<P>{data.course_module}</P>
 				</Greeting>
 			</Div>
 
 			{isDesktop && (
 				<>
-					<Para>Que pena! Estamos em desenvolvimento :(</Para>
+					<Para>Too bad! We're under construction :(</Para>
 					<Paragraph>
-						Nossa aplicação está em desenvolvimento, em breve teremos novidades.
+						Our app is under development, new updates coming soon!
 					</Paragraph>
 				</>
 			)}

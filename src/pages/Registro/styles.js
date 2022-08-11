@@ -51,8 +51,17 @@ export const Button = styled.button`
 
 	background: #59323f;
 
+	transition: all 250ms;
+
 	border: 1.2182px solid #59323f;
 	border-radius: 4px;
+
+	cursor: pointer;
+
+	&:hover {
+		background: black;
+		color: #59323f;
+	}
 `;
 
 export const Div = styled.div`
@@ -69,10 +78,12 @@ export const Div = styled.div`
 	border-radius: 4px;
 
 	@media (max-width: 375px) {
-		height: 50rem;
+		height: fit-content;
 		max-width: 100%;
-		padding: 0;
+		padding: 0 0 2rem 0;
 	}
+
+	margin: 0 0 1rem 0;
 `;
 
 export const Header = styled.div`
@@ -93,10 +104,16 @@ export const Header = styled.div`
 		font-size: 12px;
 		line-height: 28px;
 		text-align: center;
+		transition: all 250ms;
 
 		color: #f8f9fa;
 
 		cursor: pointer;
+
+		&:hover {
+			background: white;
+			color: black;
+		}
 	}
 
 	@media (max-width: 375px) {
@@ -116,5 +133,17 @@ export const CenteringDiv = styled.div`
 
 	@media (max-width: 375px) {
 		padding: 0.5rem;
+	}
+`;
+
+export const InputContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 0.7rem;
+
+	p {
+		color: red;
+		position: relative;
+		top: -10px;
 	}
 `;

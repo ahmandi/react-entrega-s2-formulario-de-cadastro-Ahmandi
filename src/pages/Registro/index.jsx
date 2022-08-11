@@ -16,23 +16,25 @@ import {
 	Input,
 	Select,
 	Button,
+	InputContainer,
 } from './styles';
 
 function Registro() {
 	const formSchema = yup.object().shape({
-		name: yup.string().required('Nome obrigatório'),
-		email: yup.string().required('Email obrigatório').email('Email inválido'),
+		name: yup.string().required('Name required'),
+		email: yup.string().required('Email required').email('Invalid Email'),
 		password: yup
 			.string()
-			.required('Senha obrigatória')
-			.matches(/[A-Z]/, 'deve conter ao menos 1 letra maiúscula')
-			.matches(/(\d)/, 'deve conter ao menos 1 número'),
+			.required('Password required')
+			.matches(/[A-Z]/, 'Must contain at least 1 uppercase character.')
+			.matches(/(\d)/, 'Must contain at least 1 number'),
 		confirmPassword: yup
 			.string()
-			.oneOf([yup.ref('password')], 'Confirmação deve ser igual a senha'),
-		bio: yup.string().required('Bio obrigatória'),
-		contact: yup.string().required('Contato obrigatório'),
-		select: yup.string().required('Seleção obrigatória'),
+			.required('Confirm password required')
+			.oneOf([yup.ref('password')], 'Passwords must match'),
+		bio: yup.string().required('Bio required'),
+		contact: yup.string().required('Contact required'),
+		select: yup.string().required('Selection required'),
 	});
 
 	const {
@@ -69,91 +71,105 @@ function Registro() {
 				<Header>
 					<img src={Logo} alt="Logo" />
 					<button onClick={() => navigate('/sessions', { replace: true })}>
-						Voltar
+						Back
 					</button>
 				</Header>
 				<Div>
-					<H1>Crie sua conta</H1>
-					<P>Rápido e grátis, vamos nessa</P>
+					<H1>Make your account</H1>
+					<P>It's quick and easy!</P>
 					<Form onSubmit={handleSubmit(onSubmitFunction)}>
-						<label htmlFor="name">Nome</label>
-						<Input
-							type="text"
-							name="name"
-							id="name"
-							placeholder="Digite aqui seu nome"
-							{...register('name')}
-						/>
-						{errors.name?.message}
+						<InputContainer>
+							<label htmlFor="name">Name</label>
+							<Input
+								type="text"
+								name="name"
+								id="name"
+								placeholder="Type your name here"
+								{...register('name')}
+							/>
+							<p>{errors.name?.message}</p>
+						</InputContainer>
 
-						<label htmlFor="email">Email</label>
-						<Input
-							type="text"
-							name="email"
-							id="email"
-							placeholder="Digite aqui seu email"
-							{...register('email')}
-						/>
-						{errors.email?.message}
+						<InputContainer>
+							<label htmlFor="email">Email</label>
+							<Input
+								type="text"
+								name="email"
+								id="email"
+								placeholder="Type your email here"
+								{...register('email')}
+							/>
+							<p>{errors.email?.message}</p>
+						</InputContainer>
 
-						<label htmlFor="password">Senha</label>
-						<Input
-							type="password"
-							name="password"
-							id="password"
-							placeholder="Digite aqui sua senha"
-							{...register('password')}
-						/>
-						{errors.password?.message}
+						<InputContainer>
+							<label htmlFor="password">Password</label>
+							<Input
+								type="password"
+								name="password"
+								id="password"
+								placeholder="Type your password here"
+								{...register('password')}
+							/>
+							<p>{errors.password?.message}</p>
+						</InputContainer>
 
-						<label htmlFor="confirmPassword">Confimar Senha</label>
-						<Input
-							type="password"
-							name="confirmPassword"
-							id="confirmPassword"
-							placeholder="Digite novamente sua senha"
-							{...register('password')}
-						/>
-						{errors.confirmPassword?.message}
+						<InputContainer>
+							<label htmlFor="confirmPassword">Confirm Password</label>
+							<Input
+								type="password"
+								name="confirmPassword"
+								id="confirmPassword"
+								placeholder="Type your password again here"
+								{...register('confirmPassword')}
+							/>
+							<p>{errors.confirmPassword?.message}</p>
+						</InputContainer>
 
-						<label htmlFor="bio">Bio</label>
-						<Input
-							type="text"
-							name="bio"
-							id="bio"
-							placeholder="Digite aqui sua bio"
-							{...register('bio')}
-						/>
-						{errors.bio?.message}
+						<InputContainer>
+							<label htmlFor="bio">Bio</label>
+							<Input
+								type="text"
+								name="bio"
+								id="bio"
+								placeholder="Tell us about you"
+								{...register('bio')}
+							/>
+							<p>{errors.bio?.message}</p>
+						</InputContainer>
 
-						<label htmlFor="contact">Contato</label>
-						<Input
-							type="text"
-							name="contact"
-							id="contact"
-							placeholder="Opções de contato"
-							{...register('contact')}
-						/>
-						{errors.contact?.message}
+						<InputContainer>
+							<label htmlFor="contact">Contact</label>
+							<Input
+								type="text"
+								name="contact"
+								id="contact"
+								placeholder="Contact options"
+								{...register('contact')}
+							/>
+							<p>{errors.contact?.message}</p>
+						</InputContainer>
 
-						<label htmlFor="select">Selecionar Módulo</label>
-						<Select
-							{...register('course_module')}
-							onChange={(e) =>
-								setMyValue('course_module', e.target.value, {
-									shouldValidate: true,
-								})
-							}
-							defaultValue={myValue}
-						>
-							<option>Primeiro módulo (Introdução ao Frontend)</option>
-							<option>Segundo módulo (Frontend Avançado)</option>
-							<option>Terceiro módulo (Introdução ao Backend)</option>
-							<option>Quarto módulo (Backend Avançado)</option>
-						</Select>
-						{errors.select?.message}
+						<InputContainer>
+							<label htmlFor="select">Select module</label>
+							<Select
+								{...register('course_module')}
+								onChange={(e) =>
+									setMyValue('course_module', e.target.value, {
+										shouldValidate: true,
+									})
+								}
+								defaultValue={myValue}
+							>
+								<option>First module (Introduction to Frontend)</option>
+								<option>Second module (Advanced Frontend)</option>
+								<option>Third module (Introduction to Backend)</option>
+								<option>Fourth module (Advanced Backend)</option>
+							</Select>
+							<p>{errors.select?.message}</p>
+						</InputContainer>
 
-						<Button type="submit">Cadastrar</Button>
+						<Button type="submit">Register</Button>
 					</Form>
 				</Div>
 			</CenteringDiv>

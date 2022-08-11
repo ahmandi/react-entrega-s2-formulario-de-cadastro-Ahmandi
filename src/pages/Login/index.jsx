@@ -22,8 +22,8 @@ function Login() {
 	//const [user, setUser] = useState('')
 
 	const formSchema = yup.object().shape({
-		email: yup.string().required('Email obrigatório').email('Email inválido'),
-		password: yup.string().required('Senha obrigatória'),
+		email: yup.string().required('Email required').email('Invalid email'),
+		password: yup.string().required('Password required'),
 	});
 
 	const navigate = useNavigate();
@@ -79,7 +79,7 @@ function Login() {
 						/>
 						{errors.email?.message}
 
-						<label htmlFor="password">Senha</label>
+						<label htmlFor="password">Password</label>
 						<Input
 							type="password"
 							name="password"
@@ -88,14 +88,14 @@ function Login() {
 						/>
 						{errors.password?.message}
 
-						<Button type="submit">Entrar</Button>
+						<Button type="submit">Sign In</Button>
 					</Form>
 
 					<Link to="/register">
-						<Para>Ainda não possui uma conta?</Para>
+						<Para>Need to create an account?</Para>
 					</Link>
 					<Cadastro onClick={() => navigate('/register', { replace: true })}>
-						Cadastre-se
+						Register
 					</Cadastro>
 				</Div>
 			</CenteringDiv>
