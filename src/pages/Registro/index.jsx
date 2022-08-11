@@ -1,9 +1,8 @@
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import api from '../../Services';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../../svg/Logo.png';
 import {
@@ -18,6 +17,7 @@ import {
 	Button,
 	InputContainer,
 } from './styles';
+import { AuthContext } from '../../context/AuthContext';
 
 function Registro() {
 	const formSchema = yup.object().shape({
@@ -34,7 +34,7 @@ function Registro() {
 			.oneOf([yup.ref('password')], 'Passwords must match'),
 		bio: yup.string().required('Bio required'),
 		contact: yup.string().required('Contact required'),
-		select: yup.string().required('Selection required'),
+		course_module: yup.string().required('Selection required'),
 	});
 
 	const {
@@ -45,18 +45,7 @@ function Registro() {
 
 	const navigate = useNavigate();
 
-	const [myValue, setMyValue] = useState('');
-
-	const onSubmitFunction = (data) => {
-		console.log(data);
-
-		api
-			.post('/users', data)
-			.then((_) => {
-				navigate('/sessions', { replace: true });
-			})
-			.catch((error) => console.log(error));
-	};
+	const { Register } = useContext(AuthContext);
 
 	console.log(errors);
 
@@ -77,7 +66,7 @@ function Registro() {
 				<Div>
 					<H1>Make your account</H1>
 					<P>It's quick and easy!</P>
-					<Form onSubmit={handleSubmit(onSubmitFunction)}>
+					<Form onSubmit={handleSubmit(Register)}>
 						<InputContainer>
 							<label htmlFor="name">Name</label>
 							<Input
@@ -152,19 +141,19 @@ function Registro() {
 
 						<InputContainer>
 							<label htmlFor="select">Select module</label>
-							<Select
-								{...register('course_module')}
-								onChange={(e) =>
-									setMyValue('course_module', e.target.value, {
-										shouldValidate: true,
-									})
-								}
-								defaultValue={myValue}
-							>
-								<option>First module (Introduction to Frontend)</option>
-								<option>Second module (Advanced Frontend)</option>
-								<option>Third module (Introduction to Backend)</option>
-								<option>Fourth module (Advanced Backend)</option>
+							<Select {...register('course_module')}>
+								<option value="Primeiro módulo (Introdução ao Frontend)">
+									First module (Introduction to Frontend)
+								</option>
+								<option value="Segundo módulo (Frontend Avançado)">
+									Second module (Advanced Frontend)
+								</option>
+								<option value="Terceiro módulo (Introdução ao Backend)">
+									Third module (Introduction to Backend)
+								</option>
+								<option value="Quarto módulo (Backend Avançado)">
+									Fourth module (Advanced Backend)
+								</option>
 							</Select>
 							<p>{errors.select?.message}</p>
 						</InputContainer>

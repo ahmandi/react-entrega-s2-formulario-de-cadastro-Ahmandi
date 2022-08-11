@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import api from '../../Services';
+import { useState, useEffect, useContext } from 'react';
 import Logo from '../../svg/Logo.png';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import {
 	Header,
 	H1,
@@ -13,11 +13,11 @@ import {
 	Para,
 	Voltar,
 } from './styles';
+import { AuthContext } from '../../context/AuthContext';
 
 function Dashboard() {
 	const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768);
-	const [user] = useState(window.localStorage.getItem('@USERID'));
-	const [data, setData] = useState({});
+	const { user, loading } = useContext(AuthContext);
 	const navigate = useNavigate();
 
 	const updateMedia = () => {
@@ -29,26 +29,29 @@ function Dashboard() {
 		return () => window.removeEventListener('resize', updateMedia);
 	});
 
-	useEffect(() => {
-		api.get(`/users/${user}`).then((response) => setData(response.data));
-	});
-
 	function handleLogout() {
 		window.localStorage.clear();
 		navigate('/sessions', { replace: true });
 	}
 
-	return (
-		<div>
+	if (loading) return <div>Loading...</div>;
+
+	return user ? (
+		<motion.div
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			exit={{ opacity: 0 }}
+			transition={{ duration: 1 }}
+		>
 			<Header>
 				<Img src={Logo} alt="Logo" />
-				<Voltar onClick={() => handleLogout()}>Sair</Voltar>
+				<Voltar onClick={() => handleLogout()}>Logout</Voltar>
 			</Header>
 
 			<Div>
 				<Greeting>
-					<H1>Hello, {data.name}</H1>
-					<P>{data.course_module}</P>
+					<H1>Hello, {user.name}</H1>
+					<P>{user.course_module}</P>
 				</Greeting>
 			</Div>
 
@@ -60,7 +63,9 @@ function Dashboard() {
 					</Paragraph>
 				</>
 			)}
-		</div>
+		</motion.div>
+	) : (
+		<Navigate to="/sessions" replace={true} />
 	);
 }
 

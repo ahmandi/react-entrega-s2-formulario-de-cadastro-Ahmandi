@@ -22,13 +22,19 @@ export const Form = styled.form`
 
 	text-align: left;
 
-	gap: 1.1rem;
+	gap: 0.7rem;
 
 	font-weight: 400;
 	font-size: 12.182px;
 	line-height: 0px;
 
 	color: rgba(248, 249, 250, 1);
+
+	p {
+		color: red;
+		position: relative;
+		top: -10px;
+	}
 `;
 
 export const Input = styled.input`
@@ -46,7 +52,7 @@ export const Div = styled.div`
 	flex-direction: column;
 	align-items: center;
 	padding: 2rem 1.375rem;
-	gap: 0.8rem;
+	gap: 0.5rem;
 
 	background: #212529;
 	box-shadow: 0px 4px 40px -10px rgba(0, 0, 0, 0.25);
@@ -120,7 +126,13 @@ export const Button = styled.button`
 	border: 1.2182px solid #ff577f;
 	border-radius: 4px;
 
+	transition: all 250ms;
+
 	margin: 1rem 0 0 0;
+
+	&:hover {
+		background: rgba(255, 87, 127, 0.8);
+	}
 `;
 
 export const Para = styled.p`
@@ -151,5 +163,11 @@ export const Cadastro = styled.button`
 	border: 1.2182px solid #868e96;
 	border-radius: 4px;
 
+	transition: all 250ms;
+
 	color: #f8f9fa;
+
+	&:hover {
+		background: rgba(134, 143, 153, 0.7);
+	}
 `;

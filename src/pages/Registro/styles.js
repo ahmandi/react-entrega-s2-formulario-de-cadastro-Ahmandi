@@ -20,7 +20,7 @@ export const Form = styled.form`
 
 	text-align: left;
 
-	gap: 1.375rem;
+	gap: 0.8rem;
 
 	font-weight: 400;
 	font-size: 12.182px;

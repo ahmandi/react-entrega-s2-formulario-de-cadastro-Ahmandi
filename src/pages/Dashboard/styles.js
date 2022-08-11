@@ -25,6 +25,15 @@ export const Voltar = styled.button`
 
 	color: #f8f9fa;
 	background: #212529;
+
+	transition: all 250ms;
+
+	cursor: pointer;
+
+	&:hover {
+		background: white;
+		color: black;
+	}
 `;
 
 export const H1 = styled.h1`
