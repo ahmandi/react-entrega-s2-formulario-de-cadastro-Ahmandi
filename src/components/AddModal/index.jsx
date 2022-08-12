@@ -32,7 +32,7 @@ function AddTechModal({ handleCloseModal }) {
 			exit={{ opacity: 0 }}
 			transition={{ duration: 1 }}
 		>
-			<Black onClick={handleCloseModal}>
+			<Black>
 				<View>
 					<Title>
 						<p>Add technology</p>
