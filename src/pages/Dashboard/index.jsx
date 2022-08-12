@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useContext, useState } from 'react';
 import Logo from '../../svg/Logo.png';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -9,32 +9,34 @@ import {
 	Div,
 	Img,
 	Greeting,
-	Paragraph,
-	Para,
 	Voltar,
+	TechDiv,
+	TechContainer,
+	TechCentralizer,
 } from './styles';
 import { AuthContext } from '../../context/AuthContext';
+import AddTechModal from '../../components/AddModal';
+import TechList from '../../components/TechList';
 
 function Dashboard() {
-	const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768);
 	const { user, loading } = useContext(AuthContext);
+	const [isModalOpen, setisModalOpen] = useState(false);
 	const navigate = useNavigate();
 
-	const updateMedia = () => {
-		setIsDesktop(window.innerWidth > 768);
-	};
+	function handleOpenModal() {
+		setisModalOpen(true);
+	}
 
-	useEffect(() => {
-		window.addEventListener('resize', updateMedia);
-		return () => window.removeEventListener('resize', updateMedia);
-	});
+	function handleCloseModal() {
+		setisModalOpen(false);
+	}
 
 	function handleLogout() {
 		window.localStorage.clear();
 		navigate('/sessions', { replace: true });
 	}
 
-	if (loading) return <div>Loading...</div>;
+	if (loading) return <p>Loading...</p>;
 
 	return user ? (
 		<motion.div
@@ -55,14 +57,20 @@ function Dashboard() {
 				</Greeting>
 			</Div>
 
-			{isDesktop && (
-				<>
-					<Para>Too bad! We're under construction :(</Para>
-					<Paragraph>
-						Our app is under development, new updates coming soon!
-					</Paragraph>
-				</>
-			)}
+			<TechDiv>
+				<p>Technologies</p>
+				<button onClick={() => handleOpenModal()}>+</button>
+			</TechDiv>
+
+			{isModalOpen && <AddTechModal handleCloseModal={handleCloseModal} />}
+
+			<TechCentralizer>
+				<TechContainer>
+					{user?.techs.map((tech, index) => (
+						<TechList tech={tech} key={index} />
+					))}
+				</TechContainer>
+			</TechCentralizer>
 		</motion.div>
 	) : (
 		<Navigate to="/sessions" replace={true} />

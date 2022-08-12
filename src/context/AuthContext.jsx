@@ -24,10 +24,9 @@ const AuthProvider = ({ children }) => {
 					setUser(data);
 				} catch (error) {
 					console.log(error);
-				} finally {
-					setLoading(false);
 				}
 			}
+			setLoading(false);
 		}
 		loadUser();
 	}, []);
@@ -47,12 +46,12 @@ const AuthProvider = ({ children }) => {
 	};
 
 	const Register = async (data) => {
-		api.post('/users', data);
+		await api.post('/users', data);
 		navigate('/sessions', { replace: true });
 	};
 
 	return (
-		<AuthContext.Provider value={{ user, signIn, Register, loading }}>
+		<AuthContext.Provider value={{ user, signIn, Register, loading, setUser }}>
 			{children}
 		</AuthContext.Provider>
 	);

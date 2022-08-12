@@ -1,6 +1,6 @@
 import './App.css';
 import { AnimatePresence } from 'framer-motion';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Registro from './pages/Registro';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
@@ -10,9 +10,10 @@ function App() {
 		<div className="App">
 			<AnimatePresence>
 				<Routes>
-					<Route path="*" element={<Registro />} />
 					<Route path="/sessions" element={<Login />} />
+					<Route path="/register" element={<Registro />} />
 					<Route path="/dashboard" element={<Dashboard />} />
+					<Route path="*" element={<Navigate to="/sessions" replace />} />
 				</Routes>
 			</AnimatePresence>
 		</div>

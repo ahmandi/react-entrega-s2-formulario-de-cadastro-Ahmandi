@@ -72,28 +72,69 @@ export const Div = styled.div`
 	&:before {
 		content: '';
 		display: block;
-		width: 100%;
 		border: 1.2182px solid #212529;
 	}
 
 	&:after {
 		content: '';
 		display: block;
-		width: 100%;
 		border: 1.2182px solid #212529;
 	}
 `;
 
-export const Para = styled.p`
-	font-weight: 700;
-	font-size: 18px;
-	line-height: 28px;
-	color: #f8f9fa;
+export const TechDiv = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+
+	width: 100%;
+
+	p {
+		color: white;
+		font-weight: 600;
+		font-size: 16px;
+		line-height: 18px;
+	}
+
+	button {
+		background: #212529;
+		border-radius: 4px;
+
+		color: white;
+
+		transition: all 250ms;
+
+		cursor: pointer;
+
+		&:hover {
+			background: white;
+			color: black;
+		}
+	}
 `;
 
-export const Paragraph = styled.p`
-	font-weight: 400;
-	font-size: 16px;
-	line-height: 24px;
-	color: #ffffff;
+export const TechCentralizer = styled.div`
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`;
+
+export const TechContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	width: 100%;
+
+	padding: 1rem 0.7rem;
+
+	gap: 0.6rem;
+
+	background: #212529;
+	border-radius: 4px;
+
+	@media (min-width: 768px) {
+		width: 60%;
+	}
 `;
