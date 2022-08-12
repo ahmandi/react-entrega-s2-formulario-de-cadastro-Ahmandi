@@ -12,6 +12,10 @@ export const Container = styled.div`
 	border-radius: 4px;
 
 	padding: 0 0.7rem;
+
+	&:hover {
+		background-color: rgba(134, 142, 150, 0.4);
+	}
 `;
 
 export const Div = styled.div`
