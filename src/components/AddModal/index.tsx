@@ -5,8 +5,10 @@ import { View, Title, Form, FormDiv, Black } from './styles';
 import { motion } from 'framer-motion';
 import { useContext } from 'react';
 import { TechContext } from '../../context/TechContext';
+import { ITechs } from '../../context/AuthContext';
+import { IHandlers } from '../../pages/Dashboard';
 
-function AddTechModal({ handleCloseModal }) {
+function AddTechModal({ handleCloseModal }: IHandlers) {
 	const { TechAdd } = useContext(TechContext);
 
 	const formSchema = yup.object().shape({
@@ -18,9 +20,9 @@ function AddTechModal({ handleCloseModal }) {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm({ resolver: yupResolver(formSchema) });
+	} = useForm<ITechs>({ resolver: yupResolver(formSchema) });
 
-	function handleAddTech(data) {
+	function handleAddTech(data: ITechs) {
 		TechAdd(data);
 		handleCloseModal();
 	}
@@ -43,7 +45,6 @@ function AddTechModal({ handleCloseModal }) {
 							<label htmlFor="title">Name</label>
 							<input
 								type="text"
-								name="technology"
 								placeholder="Insert technology"
 								{...register('title')}
 							/>

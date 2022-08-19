@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { motion } from 'framer-motion';
 import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Logo from '../../svg/Logo.png';
+import { useNavigate } from 'react-router-dom';
 import {
 	CenteringDiv,
 	Div,
@@ -16,8 +16,8 @@ import {
 	Select,
 	Button,
 	InputContainer,
-} from './styles';
-import { AuthContext } from '../../context/AuthContext';
+} from './styles.d';
+import { AuthContext, IUserRegister } from '../../context/AuthContext';
 
 function Registro() {
 	const formSchema = yup.object().shape({
@@ -41,7 +41,7 @@ function Registro() {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm({ resolver: yupResolver(formSchema) });
+	} = useForm<IUserRegister>({ resolver: yupResolver(formSchema) });
 
 	const navigate = useNavigate();
 
@@ -71,7 +71,6 @@ function Registro() {
 							<label htmlFor="name">Name</label>
 							<Input
 								type="text"
-								name="name"
 								id="name"
 								placeholder="Type your name here"
 								{...register('name')}
@@ -83,7 +82,6 @@ function Registro() {
 							<label htmlFor="email">Email</label>
 							<Input
 								type="text"
-								name="email"
 								id="email"
 								placeholder="Type your email here"
 								{...register('email')}
@@ -95,7 +93,6 @@ function Registro() {
 							<label htmlFor="password">Password</label>
 							<Input
 								type="password"
-								name="password"
 								id="password"
 								placeholder="Type your password here"
 								{...register('password')}
@@ -107,7 +104,6 @@ function Registro() {
 							<label htmlFor="confirmPassword">Confirm Password</label>
 							<Input
 								type="password"
-								name="confirmPassword"
 								id="confirmPassword"
 								placeholder="Type your password again here"
 								{...register('confirmPassword')}
@@ -119,7 +115,6 @@ function Registro() {
 							<label htmlFor="bio">Bio</label>
 							<Input
 								type="text"
-								name="bio"
 								id="bio"
 								placeholder="Tell us about you"
 								{...register('bio')}
@@ -131,7 +126,6 @@ function Registro() {
 							<label htmlFor="contact">Contact</label>
 							<Input
 								type="text"
-								name="contact"
 								id="contact"
 								placeholder="Contact options"
 								{...register('contact')}
@@ -155,7 +149,7 @@ function Registro() {
 									Fourth module (Advanced Backend)
 								</option>
 							</Select>
-							<p>{errors.select?.message}</p>
+							<p>{errors.course_module?.message}</p>
 						</InputContainer>
 
 						<Button type="submit">Register</Button>

@@ -14,9 +14,9 @@ import {
 	Input,
 	Para,
 	Cadastro,
-} from './styles';
+} from './styles.d';
 import { useContext } from 'react';
-import { AuthContext } from '../../context/AuthContext';
+import { AuthContext, ISignIn } from '../../context/AuthContext';
 
 function Login() {
 	const { signIn } = useContext(AuthContext);
@@ -32,9 +32,13 @@ function Login() {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm({ resolver: yupResolver(formSchema) });
+	} = useForm<ISignIn>({ resolver: yupResolver(formSchema) });
 
 	console.log(errors);
+
+	const handleLogin = handleSubmit((data) => {
+		signIn(data);
+	});
 
 	return (
 		<motion.div
@@ -47,20 +51,14 @@ function Login() {
 				<Img src={Logo} alt="Logo" />
 				<Div>
 					<H1>Login</H1>
-					<Form onSubmit={handleSubmit(signIn)}>
+					<Form onSubmit={handleLogin}>
 						<label htmlFor="email">Email</label>
-						<Input
-							type="text"
-							name="email"
-							placeholder="Email"
-							{...register('email')}
-						/>
+						<Input type="text" placeholder="Email" {...register('email')} />
 						<p>{errors.email?.message}</p>
 
 						<label htmlFor="password">Password</label>
 						<Input
 							type="password"
-							name="password"
 							placeholder="Password"
 							{...register('password')}
 						/>

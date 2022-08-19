@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
-import Logo from '../../svg/Logo.png';
 import { Navigate, useNavigate } from 'react-router-dom';
+import Logo from '../../svg/Logo.png';
 import { motion } from 'framer-motion';
 import {
 	Header,
@@ -13,14 +13,18 @@ import {
 	TechDiv,
 	TechContainer,
 	TechCentralizer,
-} from './styles';
+} from './styles.d';
 import { AuthContext } from '../../context/AuthContext';
 import AddTechModal from '../../components/AddModal';
 import TechList from '../../components/TechList';
 
+export interface IHandlers {
+	handleCloseModal: () => void;
+}
+
 function Dashboard() {
 	const { user, loading } = useContext(AuthContext);
-	const [isModalOpen, setisModalOpen] = useState(false);
+	const [isModalOpen, setisModalOpen] = useState<boolean>(false);
 	const navigate = useNavigate();
 
 	function handleOpenModal() {
